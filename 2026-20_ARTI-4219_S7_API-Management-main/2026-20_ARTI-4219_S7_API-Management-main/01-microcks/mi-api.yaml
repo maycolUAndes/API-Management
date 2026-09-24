@@ -1,0 +1,53 @@
+openapi: "3.0.0"
+info:
+  title: Orders API
+  version: "1.0.0"
+  description: API sencilla de pedidos para probar mocking dinámico con Microcks.
+
+paths:
+  /orders:
+    get:
+      summary: Lista los pedidos
+      operationId: listOrders
+      responses:
+        "200":
+          description: Lista de pedidos
+          content:
+            application/json:
+              examples:
+                default:
+                  summary: Pedidos de ejemplo
+                  value:
+                    - id: 1
+                      customer: "Ana"
+                      status: "confirmed"
+                    - id: 2
+                      customer: "Luis"
+                      status: "pending"
+
+  /orders/{orderId}/status:
+    get:
+      summary: Consulta el estado de un pedido
+      operationId: getOrderStatus
+      parameters:
+        - name: orderId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Estado del pedido
+          content:
+            application/json:
+              examples:
+                confirmed:
+                  summary: Pedido confirmado
+                  value:
+                    id: 1
+                    status: "confirmed"
+                pending:
+                  summary: Pedido pendiente
+                  value:
+                    id: 2
+                    status: "pending"
